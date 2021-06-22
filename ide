@@ -1,5 +1,39 @@
 #!/bin/bash
-tmux split-window -v -p 30
-tmux split-window -h -p 66
-tmux split-window -h -p 50
+
+if [ "$#" -eq 0 ]; then
+  tmux split-window -v -p 30
+  tmux split-window -h -p 66
+  tmux split-window -h -p 50
+  tmux select-pane -t 0
+else
+  case $1 in
+    h)
+      tmux split-window -h
+      tmux select-pane -t 0
+      clear
+      ;;
+    v)
+      tmux split-window -v
+      tmux select-pane -t 0
+      clear
+      ;;
+    1)
+      tmux split-window -v
+      tmux resize-pane -D 15
+      tmux select-pane -D
+      tmux select-pane -t 0
+      clear
+      ;;
+    2)
+      tmux split-window -v
+      tmux split-window -h
+      tmux resize-pane -D 15
+      tmux select-pane -t 0
+      clear
+      ;;
+    *)
+      echo [ERROR] "$1" は設定されていない引数です。
+      ;;
+  esac
+fi
 
